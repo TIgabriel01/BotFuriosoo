@@ -158,7 +158,7 @@ public class Botfurioso extends TelegramLongPollingBot {
                     break;
 
                 case "/parar":
-                    SendMessage pararMsg = new SendMessage(chatId, "Quiz encerrado. Quando quiser jogar de novo, é só digitar /quiz!");
+                    SendMessage pararMsg = new SendMessage(chatId, "Quiz encerrado. Quando quiser jogar de novo, é só digitar /quiz! ou retorne ao menu com /start");
                     try {
                         execute(pararMsg);
                     } catch (TelegramApiException e) {
