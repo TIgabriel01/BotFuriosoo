@@ -6,12 +6,15 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
-
+import io.github.cdimascio.dotenv.Dotenv;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class Botfurioso extends TelegramLongPollingBot {
+
+    private final Dotenv dotenv = Dotenv.load(); // nao mostrar meu token publicamente no codigo
+
 
     @Override
     public String getBotUsername() {
@@ -19,7 +22,7 @@ public class Botfurioso extends TelegramLongPollingBot {
     }
     @Override
     public String getBotToken() {
-        return "8088707110:AAF8E0UN7mXuG0CvZpy6Ckm-lgKRGKCHOLo";
+        return dotenv.get("API_KEY");
     }
 
     public void mostrarMenuInicial(String chatId){
