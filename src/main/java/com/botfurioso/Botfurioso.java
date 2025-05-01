@@ -15,11 +15,13 @@ public class Botfurioso extends TelegramLongPollingBot {
 
     private final Dotenv dotenv = Dotenv.load(); // nao mostrar meu token publicamente no codigo
 
-
+    // usado para pegar as informaçoes do bot
     @Override
     public String getBotUsername() {
         return "Baiit_Bot";
     }
+
+    // criei uma pasta [.env] fora do git para que minha chave token nao fique acessivel publicamente a fim de segurança do projeto
     @Override
     public String getBotToken() {
         return dotenv.get("API_KEY");
@@ -30,6 +32,7 @@ public class Botfurioso extends TelegramLongPollingBot {
         message.setChatId(chatId);
         message.setText("Bem-vindo, FURIOSO(A)! Vem e interagi comigo :) Escolha:");
 
+        // criaçao de listas com botoes e o que cada uma levara dentro dela (mensagem)
         InlineKeyboardMarkup markup = new InlineKeyboardMarkup();
         List<List<InlineKeyboardButton>> rows = new ArrayList<>();
 
@@ -73,6 +76,7 @@ public class Botfurioso extends TelegramLongPollingBot {
         }
             if(text == null) return;
 
+            // comandos realizados para que quando o usuario escolha um desses:
             switch (text) {
                 case "/start":
                     mostrarMenuInicial(chatId);
@@ -186,7 +190,7 @@ public class Botfurioso extends TelegramLongPollingBot {
 
     }
 
-    //controle do Quiz
+    //controle do Quiz - respostas
     private int perguntaAtual = 0;
 
     private final String[] pergunta = {
