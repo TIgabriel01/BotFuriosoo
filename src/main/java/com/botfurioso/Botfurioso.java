@@ -77,99 +77,101 @@ public class Botfurioso extends TelegramLongPollingBot {
             if(text == null) return;
 
             // comandos realizados para que quando o usuario escolha um desses:
-            switch (text) {
-                case "/start":
-                    mostrarMenuInicial(chatId);
-                    break;
+        if (text.startsWith("/start")) {
+            mostrarMenuInicial(chatId);
 
-                case "/quiz":
-                    perguntaAtual = 0; // sempre começa da primeira pergunta
-                    String primeiraPergunta = pergunta[perguntaAtual] + "\n\n";
-                    for (String alt : alternativas[perguntaAtual]){
-                        primeiraPergunta += alt + "\n";
-                    }
-                    primeiraPergunta += "\nResponda com A, B ou C.";
-
-                    SendMessage perguntaMsg = new SendMessage(chatId, primeiraPergunta);
-                    try {
-                        execute(perguntaMsg);
-                    } catch (TelegramApiException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-
-                case "/time":
-                    String textoTime =
-                            "*Conheça o time de CS da FURIA!*\n\n" +
-                                    "Um dos times mais agressivos do cenário mundial, a FURIA representa o Brasil com estilo único e ousadia.\n\n" +
-                                    "*Line-up atual:*\n" +
-                                    "• KSCERATO (capitão)\n" +
-                                    "• yuurih\n" +
-                                    "• chelo\n" +
-                                    "• saffee\n" +
-                                    "• FalleN (coach & player)\n\n" +
-                                    "Pronto pra torcer com a gente? Seja um Furioso você também :)\n\n" +
-                                    "Digite /quiz para testar seus conhecimentos ou /start para voltar ao menu.";
-
-                    SendMessage info = new SendMessage();
-                    info.setChatId(chatId);
-                    info.setText(textoTime);
-                    info.setParseMode("Markdown");
-                    try { execute(info); } catch (Exception e){ e.printStackTrace(); }
-                    break;
-
-                case "/stats" :
-                    String textoStats =
-                            "* Estatísticas da FURIA CS:GO*\n\n" +
-                                    " *Títulos recentes:* ESL Challenger 2024, CBCS Elite League\n" +
-                                    " *Ranking HLTV:* Top 10 mundial (2025)\n" +
-                                    " *Estilo de jogo:* agressivo e ousado — marca registrada!\n\n" +
-                                    " *Destaques individuais:*\n" +
-                                    "• KSCERATO: rating 1.20+ nos últimos 6 meses\n" +
-                                    "• yuurih: mais de 200 kills em playoffs recentes\n\n" +
-                                    "Quer mais?\nDigite /time para saber o elenco ou /quiz para testar seu conhecimento. Mas se quiser retornar ao menu digite /start.";
-                    SendMessage stats = new SendMessage();
-                    stats.setChatId(chatId);
-                    stats.setText(textoStats);
-                    stats.setParseMode("Markdown");
-                    try { execute(stats); } catch (Exception e){ e.printStackTrace(); }
-                    break;
-
-                case "/continuar":
-                    perguntaAtual++;
-                    if (perguntaAtual < pergunta.length) {
-                        String proxPergunta = pergunta[perguntaAtual] + "\n\n";
-                        for (String alt : alternativas[perguntaAtual]) {
-                            proxPergunta += alt + "\n";
-                        }
-                        proxPergunta += "\nResponda com A, B ou C.";
-
-                        SendMessage proxMsg = new SendMessage(chatId, proxPergunta);
-                        try {
-                            execute(proxMsg);
-                        } catch (TelegramApiException e) {
-                            e.printStackTrace();
-                        }
-                    } else {
-                        SendMessage fim = new SendMessage(chatId, " Parabéns! Você concluiu o quiz da FURIA.\nDigite /quiz para jogar de novo ou /start para voltar ao menu.");
-                        try {
-                            execute(fim);
-                        } catch (TelegramApiException e) {
-                            e.printStackTrace();
-                        }
-                        perguntaAtual = 0; // reseta se quiser jogar de novo
-                    }
-                    break;
-
-                case "/parar":
-                    SendMessage pararMsg = new SendMessage(chatId, "Quiz encerrado. Quando quiser jogar de novo, é só digitar /quiz! ou retorne ao menu com /start");
-                    try {
-                        execute(pararMsg);
-                    } catch (TelegramApiException e) {
-                        e.printStackTrace();
-                    }
-                    break;
+        } else if (text.equals("/quiz")) {
+            perguntaAtual = 0; // sempre começa da primeira pergunta
+            String primeiraPergunta = pergunta[perguntaAtual] + "\n\n";
+            for (String alt : alternativas[perguntaAtual]){
+                primeiraPergunta += alt + "\n";
             }
+            primeiraPergunta += "\nResponda com A, B ou C.";
+
+            SendMessage perguntaMsg = new SendMessage(chatId, primeiraPergunta);
+            try {
+                execute(perguntaMsg);
+            } catch (TelegramApiException e) {
+                e.printStackTrace();
+            }
+
+        } else if (text.equals("/time")) {
+            String textoTime =
+                    "*Conheça o time de CS da FURIA!*\n\n" +
+                            "Um dos times mais agressivos do cenário mundial, a FURIA representa o Brasil com estilo único e ousadia.\n\n" +
+                            "*Line-up atual:*\n" +
+                            "• KSCERATO (capitão)\n" +
+                            "• yuurih\n" +
+                            "• chelo\n" +
+                            "• saffee\n" +
+                            "• FalleN (coach & player)\n\n" +
+                            "Pronto pra torcer com a gente? Seja um Furioso você também :)\n\n" +
+                            "Digite /quiz para testar seus conhecimentos ou /start para voltar ao menu.";
+
+            SendMessage info = new SendMessage();
+            info.setChatId(chatId);
+            info.setText(textoTime);
+            info.setParseMode("Markdown");
+            try {
+                execute(info);
+            } catch (TelegramApiException e) {
+                e.printStackTrace();
+            }
+
+        } else if (text.equals("/stats")) {
+            String textoStats =
+                    "* Estatísticas da FURIA CS:GO*\n\n" +
+                            " *Títulos recentes:* ESL Challenger 2024, CBCS Elite League\n" +
+                            " *Ranking HLTV:* Top 10 mundial (2025)\n" +
+                            " *Estilo de jogo:* agressivo e ousado — marca registrada!\n\n" +
+                            " *Destaques individuais:*\n" +
+                            "• KSCERATO: rating 1.20+ nos últimos 6 meses\n" +
+                            "• yuurih: mais de 200 kills em playoffs recentes\n\n" +
+                            "Quer mais?\nDigite /time para saber o elenco ou /quiz para testar seu conhecimento. Mas se quiser retornar ao menu digite /start.";
+
+            SendMessage stats = new SendMessage();
+            stats.setChatId(chatId);
+            stats.setText(textoStats);
+            stats.setParseMode("Markdown");
+            try {
+                execute(stats);
+            } catch (TelegramApiException e) {
+                e.printStackTrace();
+            }
+
+        } else if (text.equals("/continuar")) {
+            perguntaAtual++;
+            if (perguntaAtual < pergunta.length) {
+                String proxPergunta = pergunta[perguntaAtual] + "\n\n";
+                for (String alt : alternativas[perguntaAtual]) {
+                    proxPergunta += alt + "\n";
+                }
+                proxPergunta += "\nResponda com A, B ou C.";
+
+                SendMessage proxMsg = new SendMessage(chatId, proxPergunta);
+                try {
+                    execute(proxMsg);
+                } catch (TelegramApiException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                SendMessage fim = new SendMessage(chatId, "Parabéns! Você concluiu o quiz da FURIA.\nDigite /quiz para jogar de novo ou /start para voltar ao menu.");
+                try {
+                    execute(fim);
+                } catch (TelegramApiException e) {
+                    e.printStackTrace();
+                }
+                perguntaAtual = 0; // reseta se quiser jogar de novo
+            }
+
+        } else if (text.equals("/parar")) {
+            SendMessage pararMsg = new SendMessage(chatId, "Quiz encerrado. Quando quiser jogar de novo, é só digitar /quiz! ou retorne ao menu com /start");
+            try {
+                execute(pararMsg);
+            } catch (TelegramApiException e) {
+                e.printStackTrace();
+            }
+        }
         if (text.equalsIgnoreCase("A") || text.equalsIgnoreCase("B") || text.equalsIgnoreCase("C")) {
             if (text.equalsIgnoreCase(respostasCorretas[perguntaAtual])) {
                 SendMessage acertou = new SendMessage(chatId, "✅ Boa! Você acertou! Digite /continuar ou /parar.");
