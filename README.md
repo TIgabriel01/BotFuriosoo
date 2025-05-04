@@ -44,3 +44,9 @@ Este projeto envolveu diversas tecnologias e conceitos fundamentais de desenvolv
 1. Clone o repositório:
    ```bash
    git clone https://github.com/TIgabriel01/BotFuriosoo.git
+
+## 🔗 Acesse a Landing Page
+
+2. Clique aqui para ver o Bot Furioso em ação:
+   https://tigabriel01.github.io/BotFuriosoo/
+
