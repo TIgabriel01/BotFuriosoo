@@ -6,6 +6,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
+import org.telegram.telegrambots.meta.api.methods.AnswerCallbackQuery;
 import io.github.cdimascio.dotenv.Dotenv;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -69,10 +70,20 @@ public class Botfurioso extends TelegramLongPollingBot {
             text = update.getMessage().getText();
         }
         //clique em inline button
-            else if(update.hasCallbackQuery()){
-                CallbackQuery cq = update.getCallbackQuery();
-                chatId = cq.getMessage().getChatId().toString();
-                text = cq.getData(); // quiz | time | stats
+        else if (update.hasCallbackQuery()) {
+            CallbackQuery cq = update.getCallbackQuery();
+            chatId = cq.getMessage().getChatId().toString();
+            text = cq.getData(); // quiz | time | stats
+
+            // callback tratado de forma correta e evitando repetiçao no meu bot
+            AnswerCallbackQuery answer = new AnswerCallbackQuery();
+            answer.setCallbackQueryId(cq.getId());
+
+            try {
+                execute(answer);
+            } catch (TelegramApiException e) {
+                e.printStackTrace();
+            }
         }
             if(text == null) return;
 
