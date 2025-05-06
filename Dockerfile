@@ -14,4 +14,4 @@ RUN mvn clean package
 EXPOSE 8080
 
 # Comando para rodar o bot
-CMD ["java", "-jar", "target/botfurioso-1.0-SNAPSHOT.jar"]
+CMD ["java", "-jar", "target/BotFurioso-1.0-SNAPSHOT.jar"]
