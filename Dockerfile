@@ -1,14 +1,11 @@
-# Use a imagem oficial do OpenJDK (versão 17 ou a que você preferir)
-FROM openjdk:17-jdk
+# Use uma imagem que já tenha o Maven instalado
+FROM maven:3.8.6-openjdk-17
 
 # Define o diretório de trabalho dentro do container
 WORKDIR /app
 
 # Copia os arquivos do projeto para dentro do container
 COPY . /app
-
-# Instala o Maven
-RUN apt-get update && apt-get install -y maven
 
 # Executa o Maven para compilar o projeto
 RUN mvn clean package
