@@ -9,5 +9,4 @@ FROM eclipse-temurin:17
 WORKDIR /app
 COPY --from=build /app/target/BotFurioso-1.0-SNAPSHOT.jar app.jar
 
-# Comando para executar o bot
 CMD ["java", "-jar", "app.jar"]
